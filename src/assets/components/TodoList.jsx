@@ -11,6 +11,18 @@ export default function TodoList() {
       setInputValue("");
     }
   }
+
+  function handleResetTodo() {
+    setTodos([]);
+  }
+
+  function handleDeleteTodo(indexToRemove) {
+    setTodos(
+      todos.filter((_, index) => {
+        return index !== indexToRemove;
+      })
+    );
+  }
   return (
     <div>
       <input
@@ -18,9 +30,13 @@ export default function TodoList() {
         onChange={(e) => setInputValue(e.target.value)}
       />
       <button onClick={handleAddTodo}>Aggiungi</button>
+      <button onClick={handleResetTodo}>Reset</button>
       <ul>
         {todos.map((todo, index) => (
-          <li key={index}>{todo}</li>
+          <li key={index}>
+            {todo}{" "}
+            <button onClick={() => handleDeleteTodo(index)}>Elimina</button>
+          </li>
         ))}
       </ul>
     </div>
